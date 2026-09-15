@@ -57,7 +57,7 @@ export const PeaceOfMindModal: React.FC<PeaceOfMindModalProps> = ({ isOpen, onCl
         {/* Mascot reassurance card */}
         <div className="bg-[#fff8ec] rounded-[20px] border-2 border-[#ffc94d] p-4 mb-6 flex flex-col sm:flex-row items-center gap-4">
           <Mascot mood="cheering" size="md" />
-          <div className="text-xs sm:text-sm text-[#7a5814] leading-relaxed">
+          <div className="min-w-0 flex-1 text-xs sm:text-sm text-[#7a5814] leading-relaxed">
             <span className="font-extrabold text-[#b37d05] block mb-1">
               DXうさ子ちゃんからのお約束 🐰
             </span>

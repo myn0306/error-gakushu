@@ -27,6 +27,20 @@ const MOOD_IMAGE_MAP: Record<MascotMood, string> = {
   happy: '/mascot/usako-happy.jpg',
 };
 
+const SIZE_CLASS_MAP = {
+  sm: 'w-14 h-16',
+  md: 'w-20 h-24',
+  lg: 'w-32 h-40',
+  xl: 'w-40 h-52',
+} as const;
+
+const SIZE_PX_MAP = {
+  sm: { width: 56, height: 64 },
+  md: { width: 80, height: 96 },
+  lg: { width: 128, height: 160 },
+  xl: { width: 160, height: 208 },
+} as const;
+
 export const Mascot: React.FC<MascotProps> = ({
   mood = 'happy',
   size = 'md',
@@ -34,28 +48,22 @@ export const Mascot: React.FC<MascotProps> = ({
   speakerName = 'DXうさ子ちゃん',
   className = '',
 }) => {
-  const sizeMap = {
-    sm: { width: 56, height: 68 },
-    md: { width: 88, height: 106 },
-    lg: { width: 128, height: 154 },
-    xl: { width: 168, height: 202 },
-  };
-
-  const { width, height } = sizeMap[size];
+  const { width, height } = SIZE_PX_MAP[size];
   const imageSrc = MOOD_IMAGE_MAP[mood] ?? MOOD_IMAGE_MAP.normal;
 
   return (
-    <div className={`flex flex-col sm:flex-row items-center gap-2 sm:gap-3 max-w-full min-w-0 ${className}`}>
-      <div
-        className="relative shrink-0 transition-transform duration-300 hover:scale-105"
-        style={{ width, height }}
-      >
+    <div
+      className={`flex items-center gap-2 sm:gap-3 ${
+        bubbleText ? 'flex-col sm:flex-row max-w-full' : 'shrink-0'
+      } ${className}`}
+    >
+      <div className={`relative shrink-0 overflow-hidden ${SIZE_CLASS_MAP[size]}`}>
         <img
           src={imageSrc}
           alt={`${speakerName}（${mood}）`}
           width={width}
           height={height}
-          className="w-full h-full object-contain drop-shadow-[0_4px_12px_rgba(150,120,100,0.15)]"
+          className="block w-full h-full max-w-full max-h-full object-contain drop-shadow-[0_4px_12px_rgba(150,120,100,0.15)]"
         />
       </div>
 

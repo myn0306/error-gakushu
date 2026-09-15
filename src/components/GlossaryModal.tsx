@@ -160,9 +160,9 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-dashed border-[#cfe9f7]">
-          <div className="flex items-center gap-2 text-xs text-[#2b7ea8] font-bold">
+          <div className="flex items-center gap-2 min-w-0 text-xs text-[#2b7ea8] font-bold">
             <Mascot mood="happy" size="sm" />
-            <span>わからない単語があったら、いつでもここを開いてね！</span>
+            <span className="min-w-0">わからない単語があったら、いつでもここを開いてね！</span>
           </div>
           <button
             onClick={onClose}

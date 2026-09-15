@@ -455,7 +455,7 @@ export const ErrorDictionary: React.FC = () => {
             {/* Mascot Advice Footer */}
             <div className="bg-white rounded-[20px] border-2 border-[#a0d5f5] p-4 flex items-center gap-4 shadow-xs">
               <Mascot mood="cheering" size="sm" />
-              <div className="text-xs sm:text-sm font-bold text-[#2b7ea8]">
+              <div className="min-w-0 flex-1 text-xs sm:text-sm font-bold text-[#2b7ea8]">
                 <p>💡 DXうさ子ちゃんのアドバイス：</p>
                 <p className="text-[#5a4a42] font-medium mt-0.5">{selectedCategory.adviceQuote}</p>
               </div>
