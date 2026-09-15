@@ -109,10 +109,14 @@ export function getWeeklyStampDays(): { day: string; stamped: boolean; isToday?:
 /**
  * QUIZ_QUESTIONS配列から、日付に応じて毎日決まった1問を選ぶ。
  * 同じ日なら誰がアクセスしても同じ問題、日付が変わると次の問題に進む。
+ * 日付の切り替わりは端末のローカル日付（日本なら深夜0時）に合わせる。
  */
 export function getTodayQuestion(quizQuestions: QuizQuestion[]): QuizQuestion {
-  const epoch = new Date('2026-01-01T00:00:00Z').getTime();
-  const dayIndex = Math.floor((Date.now() - epoch) / 86400000);
+  const epoch = new Date(2026, 0, 1);
+  const now = new Date();
+  const epochMidnight = new Date(epoch.getFullYear(), epoch.getMonth(), epoch.getDate());
+  const nowMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dayIndex = Math.round((nowMidnight.getTime() - epochMidnight.getTime()) / 86400000);
   const index = ((dayIndex % quizQuestions.length) + quizQuestions.length) % quizQuestions.length;
   return quizQuestions[index];
 }
