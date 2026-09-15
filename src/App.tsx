@@ -227,9 +227,6 @@ export default function App() {
             <span>エラーメッセージは、パソコンからの助けを求めるラブレター💌</span>
             <FlowerIcon size={16} />
           </div>
-          <p className="text-[11px] text-[#9f8d85]">
-            デザイン・構成：Cursor移植用フロントエンドプロトタイプ • ふわふわパステルトンマナ
-          </p>
         </div>
       </footer>
     </div>
