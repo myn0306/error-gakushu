@@ -130,7 +130,7 @@ export const DiagnosticGame: React.FC = () => {
               </div>
             </div>
 
-            <div className="relative flex items-center justify-between px-3">
+            <div className="relative flex items-center gap-1 sm:gap-1.5 px-1 overflow-x-auto pb-2">
               {/* Dashed background road */}
               <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-1 border-t-2 border-dashed border-[#ffb3c1] z-0" />
 
@@ -140,7 +140,7 @@ export const DiagnosticGame: React.FC = () => {
                 return (
                   <div
                     key={q.id}
-                    className={`relative z-10 w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-extrabold text-xs sm:text-sm border-2 transition-all duration-300 ${
+                    className={`relative z-10 shrink-0 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-extrabold text-[11px] sm:text-sm border-2 transition-all duration-300 ${
                       isCurrent
                         ? 'bg-[#ff9db8] text-white border-white scale-110 shadow-[0_4px_12px_rgba(150,120,100,0.15)]'
                         : isPassed
