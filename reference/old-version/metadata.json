@@ -1,0 +1,6 @@
+{
+  "name": "エラー読み方ずかん",
+  "description": "未経験者・コードアレルギーの人向けにエラーメッセージの読み方を楽しく学べるふわふわパステルな学習アプリ",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

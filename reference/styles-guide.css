@@ -1,0 +1,312 @@
+/* ============================================================
+   エラー学習アプリ スタイルガイド
+   「はじめてのファシリテーション入門」画像のトンマナを踏襲
+   ふわふわ・パステル・角丸・キラキラ装飾がコンセプト
+   ============================================================ */
+:root {
+  /* ---------- カラーパレット ---------- */
+  /* 背景グラデーション用 */
+  --bg-sky-blue: #cfe9f7;
+  --bg-sky-blue-light: #e8f4fb;
+  --bg-cream: #fff8ec;
+  --bg-white: #ffffff;
+  /* アクセントカラー（パステル） */
+  --color-pink: #ffd3e0;
+  --color-pink-strong: #ff9db8;
+  --color-yellow: #ffe9a8;
+  --color-yellow-strong: #ffc94d;
+  --color-mint: #d3f3e8;
+  --color-lavender: #e3d9f7;
+  --color-peach: #ffddc4;
+  /* テキストカラー */
+  --text-main: #5a4a42;
+  --text-sub: #8a7c74;
+  --text-on-color: #ffffff;
+  /* キャラクター系 */
+  --char-skin: #ffe8d6;
+  --char-cheek: #ffb3c1;
+  --char-hair: #a97c50;
+  /* ---------- 角丸・シャドウ ---------- */
+  --radius-s: 12px;
+  --radius-m: 20px;
+  --radius-l: 32px;
+  --radius-full: 999px; /* 雲・バッジ・ボタン用 */
+  --shadow-soft: 0 4px 12px rgba(150, 120, 100, 0.15);
+  --shadow-card: 0 6px 20px rgba(150, 120, 100, 0.12);
+  --shadow-pressed: inset 0 2px 6px rgba(150, 120, 100, 0.2);
+  /* ---------- フォント ---------- */
+  --font-main: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Zen Maru Gothic", sans-serif;
+  --fs-title: 28px;
+  --fs-heading: 20px;
+  --fs-body: 16px;
+  --fs-small: 13px;
+  /* ---------- スペーシング ---------- */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 40px;
+}
+
+/* ============================================================
+   ベース
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--text-main);
+  background: linear-gradient(180deg, var(--bg-sky-blue) 0%, var(--bg-sky-blue-light) 40%, var(--bg-cream) 100%);
+  margin: 0;
+  padding: var(--space-l);
+}
+
+h1, h2, h3 {
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ============================================================
+   セクション見出しバッジ（丸アイコン＋パステル角丸ラベル）
+   例：「ファシリテーターの心構え」の黄色バッジ
+   ============================================================ */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-s);
+  background: var(--color-yellow);
+  border-radius: var(--radius-full);
+  padding: var(--space-s) var(--space-l);
+  font-size: var(--fs-heading);
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
+}
+
+.section-badge__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   ふわふわカード（雲っぽい角丸パネル）
+   説明カード・図鑑カードなどの基本コンテナ
+   ============================================================ */
+.cloud-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-l);
+  padding: var(--space-l);
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.cloud-card--pink   { background: var(--color-pink); }
+.cloud-card--mint   { background: var(--color-mint); }
+.cloud-card--peach  { background: var(--color-peach); }
+.cloud-card--lavender { background: var(--color-lavender); }
+
+/* ============================================================
+   吹き出し（キャラクターのセリフ用）
+   ============================================================ */
+.speech-bubble {
+  position: relative;
+  background: var(--bg-white);
+  border-radius: var(--radius-m);
+  padding: var(--space-m) var(--space-l);
+  box-shadow: var(--shadow-soft);
+  font-size: var(--fs-body);
+  max-width: 360px;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 32px;
+  width: 20px;
+  height: 20px;
+  background: var(--bg-white);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  transform: rotate(-45deg);
+}
+
+/* しっぽを右に出したい場合は .speech-bubble--right を併用 */
+.speech-bubble--right::after {
+  left: auto;
+  right: 32px;
+  transform: rotate(135deg);
+}
+
+/* ============================================================
+   ステップバッジ（5ステップの基本サイクルのような番号丸）
+   ============================================================ */
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-yellow-strong);
+  color: var(--text-on-color);
+  font-weight: 800;
+  font-size: var(--fs-heading);
+  box-shadow: var(--shadow-soft);
+}
+
+.step-path {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.step-path__line {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-peach) 0 8px,
+    transparent 8px 14px
+  );
+}
+
+/* ============================================================
+   マスコットキャラのプレースホルダー円
+   （実イラストが来るまでのダミー表示用）
+   ============================================================ */
+.mascot-blob {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--char-skin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.mascot-blob::before,
+.mascot-blob::after {
+  /* 頬っぺた */
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  background: var(--char-cheek);
+  border-radius: 50%;
+  bottom: 16px;
+  opacity: 0.8;
+}
+
+.mascot-blob::before { left: 10px; }
+.mascot-blob::after  { right: 10px; }
+
+/* ============================================================
+   キラキラ・お菓子などの散らし装飾（絶対配置で自由に置く）
+   ============================================================ */
+.sparkle-deco {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: sparkle-twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50%      { opacity: 1;   transform: scale(1.1); }
+}
+
+/* ============================================================
+   危険度メーター（診断ゲーム用）
+   ============================================================ */
+.danger-meter {
+  width: 100%;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--bg-sky-blue-light);
+  overflow: hidden;
+  box-shadow: var(--shadow-pressed);
+}
+
+.danger-meter__fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.danger-meter__fill--low    { background: var(--color-mint); }
+.danger-meter__fill--mid    { background: var(--color-yellow-strong); }
+.danger-meter__fill--high   { background: var(--color-pink-strong); }
+
+/* ============================================================
+   ボタン（角丸・パステル・押した感じの影）
+   ============================================================ */
+.btn-cute {
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  color: var(--text-main);
+  background: var(--color-pink);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: var(--space-s) var(--space-l);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-cute:hover {
+  transform: translateY(-2px);
+}
+
+.btn-cute:active {
+  transform: translateY(1px);
+  box-shadow: var(--shadow-pressed);
+}
+
+.btn-cute--primary {
+  background: var(--color-yellow-strong);
+  color: var(--text-on-color);
+}
+
+/* ============================================================
+   図鑑グリッド（キャラ×診断ゲームの一覧画面用）
+   ============================================================ */
+.zukan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-m);
+}
+
+.zukan-item {
+  background: var(--bg-white);
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease;
+}
+
+.zukan-item:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.zukan-item__label {
+  margin-top: var(--space-s);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--text-sub);
+}

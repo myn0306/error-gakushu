@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>エラー学習アプリ スタイルガイド</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .guide {
+      max-width: 880px;
+      margin: 0 auto;
+      padding-bottom: var(--space-xl);
+    }
+
+    .guide__hero {
+      text-align: center;
+      padding: var(--space-xl) var(--space-m) var(--space-l);
+      position: relative;
+    }
+
+    .guide__kicker {
+      font-size: var(--fs-small);
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-s);
+    }
+
+    .guide__title {
+      font-size: var(--fs-title);
+      margin-bottom: var(--space-s);
+    }
+
+    .guide__lead {
+      font-size: var(--fs-body);
+      color: var(--text-sub);
+      margin: 0 auto var(--space-l);
+      max-width: 28em;
+      line-height: 1.7;
+    }
+
+    .guide-section {
+      margin-top: var(--space-xl);
+    }
+
+    .guide-section__head {
+      margin-bottom: var(--space-m);
+    }
+
+    .guide-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-l);
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--space-m);
+    }
+
+    .swatch {
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      background: var(--bg-white);
+    }
+
+    .swatch__chip {
+      height: 64px;
+    }
+
+    .swatch__meta {
+      padding: var(--space-s) var(--space-m) var(--space-m);
+    }
+
+    .swatch__name {
+      font-size: var(--fs-small);
+      font-weight: 700;
+    }
+
+    .swatch__hex {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .type-sample {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-m);
+    }
+
+    .type-sample__row {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-m);
+    }
+
+    .type-sample__label {
+      flex: 0 0 88px;
+      font-size: var(--fs-small);
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    .card-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--space-m);
+    }
+
+    .speech-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .speech-unit .mascot-blob {
+      margin-left: 18px;
+    }
+
+    .speech-unit--right {
+      align-items: flex-end;
+    }
+
+    .speech-unit--right .mascot-blob {
+      margin-left: 0;
+      margin-right: 18px;
+    }
+
+    .meter-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-m);
+    }
+
+    .meter-list__label {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--fs-small);
+      font-weight: 700;
+      margin-bottom: var(--space-xs);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-m);
+      align-items: center;
+    }
+
+    .mascot-blob {
+      font-size: 22px;
+    }
+
+    .code-hint {
+      margin-top: var(--space-s);
+      font-size: var(--fs-small);
+      color: var(--text-sub);
+    }
+  </style>
+</head>
+<body>
+  <div class="guide">
+    <header class="guide__hero">
+      <span class="sparkle-deco" style="top: 12px; left: 8%;">✦</span>
+      <span class="sparkle-deco" style="top: 40px; right: 12%; animation-delay: 0.6s;">★</span>
+      <span class="sparkle-deco" style="top: 8px; right: 28%; animation-delay: 1.2s;">🍬</span>
+      <p class="guide__kicker">ERROR LEARNING STYLE GUIDE</p>
+      <h1 class="guide__title">エラー学習アプリ</h1>
+      <p class="guide__lead">ふわふわ・パステル・角丸・キラキラ。コンポーネントを実際の見た目で確認するための見本ページです。</p>
+      <div class="speech-unit" style="align-items: center;">
+        <div class="speech-bubble">いっしょに、まちがいから学ぼうね！</div>
+        <div class="mascot-blob" aria-hidden="true" style="margin: 0;">◕‿◕</div>
+      </div>
+    </header>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">🎨</span>
+          カラーパレット
+        </div>
+      </div>
+      <div class="cloud-card">
+        <div class="swatch-grid">
+          <div class="swatch"><div class="swatch__chip" style="background:#cfe9f7"></div><div class="swatch__meta"><div class="swatch__name">空ブルー</div><div class="swatch__hex">#cfe9f7</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#e8f4fb"></div><div class="swatch__meta"><div class="swatch__name">空ブルー薄</div><div class="swatch__hex">#e8f4fb</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#fff8ec"></div><div class="swatch__meta"><div class="swatch__name">クリーム</div><div class="swatch__hex">#fff8ec</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#ffd3e0"></div><div class="swatch__meta"><div class="swatch__name">ピンク</div><div class="swatch__hex">#ffd3e0</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#ff9db8"></div><div class="swatch__meta"><div class="swatch__name">ピンク強調</div><div class="swatch__hex">#ff9db8</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#ffe9a8"></div><div class="swatch__meta"><div class="swatch__name">イエロー</div><div class="swatch__hex">#ffe9a8</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#ffc94d"></div><div class="swatch__meta"><div class="swatch__name">イエロー強調</div><div class="swatch__hex">#ffc94d</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#d3f3e8"></div><div class="swatch__meta"><div class="swatch__name">ミント</div><div class="swatch__hex">#d3f3e8</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#e3d9f7"></div><div class="swatch__meta"><div class="swatch__name">ラベンダー</div><div class="swatch__hex">#e3d9f7</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#ffddc4"></div><div class="swatch__meta"><div class="swatch__name">ピーチ</div><div class="swatch__hex">#ffddc4</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#5a4a42"></div><div class="swatch__meta"><div class="swatch__name">テキスト主</div><div class="swatch__hex">#5a4a42</div></div></div>
+          <div class="swatch"><div class="swatch__chip" style="background:#8a7c74"></div><div class="swatch__meta"><div class="swatch__name">テキスト副</div><div class="swatch__hex">#8a7c74</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">あ</span>
+          タイポグラフィ
+        </div>
+      </div>
+      <div class="cloud-card">
+        <div class="type-sample">
+          <div class="type-sample__row">
+            <span class="type-sample__label">title 28</span>
+            <h1>まちがい図鑑をはじめよう</h1>
+          </div>
+          <div class="type-sample__row">
+            <span class="type-sample__label">heading 20</span>
+            <h2>ファシリテーターの心構え</h2>
+          </div>
+          <div class="type-sample__row">
+            <span class="type-sample__label">body 16</span>
+            <p style="margin:0; font-size: var(--fs-body);">失敗はこわくないよ。気づきに変えれば、次の一歩になる。</p>
+          </div>
+          <div class="type-sample__row">
+            <span class="type-sample__label">small 13</span>
+            <p style="margin:0; font-size: var(--fs-small); color: var(--text-sub);">M PLUS Rounded 1c / Hiragino Maru Gothic</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">☁</span>
+          ふわふわカード
+        </div>
+      </div>
+      <div class="card-row">
+        <div class="cloud-card">
+          <span class="sparkle-deco" style="top: 12px; right: 16px;">✦</span>
+          <h3 style="font-size: var(--fs-heading); margin-bottom: var(--space-s);">しろカード</h3>
+          <p style="margin:0; color: var(--text-sub);">説明や図鑑の基本コンテナ。</p>
+        </div>
+        <div class="cloud-card cloud-card--pink">
+          <h3 style="font-size: var(--fs-heading); margin-bottom: var(--space-s);">ピンク</h3>
+          <p style="margin:0;">やさしい警告や注目。</p>
+        </div>
+        <div class="cloud-card cloud-card--mint">
+          <h3 style="font-size: var(--fs-heading); margin-bottom: var(--space-s);">ミント</h3>
+          <p style="margin:0;">安心・クリア・低危険度。</p>
+        </div>
+        <div class="cloud-card cloud-card--peach">
+          <h3 style="font-size: var(--fs-heading); margin-bottom: var(--space-s);">ピーチ</h3>
+          <p style="margin:0;">ステップや導線の補助。</p>
+        </div>
+        <div class="cloud-card cloud-card--lavender">
+          <h3 style="font-size: var(--fs-heading); margin-bottom: var(--space-s);">ラベンダー</h3>
+          <p style="margin:0;">キャラ紹介や余韻。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">1</span>
+          5ステップの基本サイクル
+        </div>
+      </div>
+      <div class="cloud-card">
+        <div class="step-path" aria-label="基本サイクル">
+          <span class="step-badge">1</span>
+          <span class="step-path__line"></span>
+          <span class="step-badge">2</span>
+          <span class="step-path__line"></span>
+          <span class="step-badge">3</span>
+          <span class="step-path__line"></span>
+          <span class="step-badge">4</span>
+          <span class="step-path__line"></span>
+          <span class="step-badge">5</span>
+        </div>
+        <p class="code-hint">出会う → 気づく → 考える → 試す → ふりかえる</p>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">💬</span>
+          吹き出しとマスコット
+        </div>
+      </div>
+      <div class="guide-stack">
+        <div class="speech-unit">
+          <div class="speech-bubble">このまちがい、よくあるやつだよ。いっしょに見てみよっか。</div>
+          <div class="mascot-blob" aria-hidden="true">◕‿◕</div>
+        </div>
+        <div class="speech-unit speech-unit--right">
+          <div class="speech-bubble speech-bubble--right">わかった！次は危険度をチェックしてみるね。</div>
+          <div class="mascot-blob" aria-hidden="true">◕ω◕</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">⚠</span>
+          危険度メーター
+        </div>
+      </div>
+      <div class="cloud-card">
+        <div class="meter-list">
+          <div>
+            <div class="meter-list__label"><span>低</span><span>やさしいまちがい</span></div>
+            <div class="danger-meter"><div class="danger-meter__fill danger-meter__fill--low" style="width: 28%"></div></div>
+          </div>
+          <div>
+            <div class="meter-list__label"><span>中</span><span>ちょっと注意</span></div>
+            <div class="danger-meter"><div class="danger-meter__fill danger-meter__fill--mid" style="width: 58%"></div></div>
+          </div>
+          <div>
+            <div class="meter-list__label"><span>高</span><span>大きなズレ</span></div>
+            <div class="danger-meter"><div class="danger-meter__fill danger-meter__fill--high" style="width: 86%"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">▶</span>
+          ボタン
+        </div>
+      </div>
+      <div class="cloud-card">
+        <div class="btn-row">
+          <button class="btn-cute" type="button">もどる</button>
+          <button class="btn-cute btn-cute--primary" type="button">つぎへ進む</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section">
+      <div class="guide-section__head">
+        <div class="section-badge">
+          <span class="section-badge__icon">📖</span>
+          まちがい図鑑
+        </div>
+      </div>
+      <div class="zukan-grid">
+        <div class="zukan-item">
+          <div class="mascot-blob" style="margin: 0 auto;">◕‿◕</div>
+          <div class="zukan-item__label">せっかちさん</div>
+        </div>
+        <div class="zukan-item">
+          <div class="mascot-blob" style="margin: 0 auto; background: var(--color-lavender);">◕︵◕</div>
+          <div class="zukan-item__label">もじもじさん</div>
+        </div>
+        <div class="zukan-item">
+          <div class="mascot-blob" style="margin: 0 auto; background: var(--color-mint);">◕▿◕</div>
+          <div class="zukan-item__label">よみとばしさん</div>
+        </div>
+        <div class="zukan-item">
+          <div class="mascot-blob" style="margin: 0 auto; background: var(--color-peach);">◕ω◕</div>
+          <div class="zukan-item__label">ひとりよがりさん</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
