@@ -31,19 +31,19 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-[32px] border-4 border-[#cfe9f7] p-6 sm:p-8 shadow-[0_6px_20px_rgba(150,120,100,0.12)]">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-3 sm:p-6 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="relative bg-white w-full max-w-3xl max-h-[min(90dvh,90vh)] overflow-y-auto rounded-t-[32px] sm:rounded-[32px] border-4 border-[#cfe9f7] p-5 sm:p-8 shadow-[0_6px_20px_rgba(150,120,100,0.12)] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-10 h-10 rounded-full bg-[#e8f4fb] border-2 border-[#cfe9f7] hover:bg-[#cfe9f7] text-[#2b7ea8] flex items-center justify-center transition-colors shadow-xs cursor-pointer"
+          className="absolute top-3 right-3 z-20 w-11 h-11 rounded-full bg-[#e8f4fb] border-2 border-[#cfe9f7] hover:bg-[#cfe9f7] text-[#2b7ea8] flex items-center justify-center transition-colors shadow-xs cursor-pointer"
           aria-label="閉じる"
         >
           <X size={20} />
         </button>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-6 pr-14">
           <div className="w-14 h-14 rounded-[20px] bg-[#cfe9f7] flex items-center justify-center text-3xl shadow-xs shrink-0">
             📖
           </div>
@@ -69,7 +69,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="気になる言葉を検索（例: モジュール、パス、メモリ、環境変数...）"
-            className="w-full pl-11 pr-4 py-3 rounded-[20px] bg-[#e8f4fb] border-2 border-[#cfe9f7] text-xs sm:text-sm text-[#5a4a42] placeholder-[#a6c1d1] focus:outline-none focus:border-[#cfe9f7] transition-colors"
+            className="w-full min-h-[44px] pl-11 pr-4 py-3 rounded-[20px] bg-[#e8f4fb] border-2 border-[#cfe9f7] text-base text-[#5a4a42] placeholder-[#a6c1d1] focus:outline-none focus:border-[#cfe9f7] transition-colors"
           />
         </div>
 
@@ -84,7 +84,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
                   <button
                     key={termItem.term}
                     onClick={() => setSelectedTerm(termItem)}
-                    className={`w-full p-3 rounded-[20px] border-2 text-left flex items-center gap-3 transition-all cursor-pointer ${
+                    className={`w-full min-h-[44px] p-3 rounded-[20px] border-2 text-left flex items-center gap-3 transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[#e8f4fb] border-[#cfe9f7] shadow-xs translate-x-1'
                         : 'bg-[#fff8ec] border-[#e8dcd5] hover:bg-[#e8f4fb]'
@@ -166,7 +166,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({ isOpen, onClose, i
           </div>
           <button
             onClick={onClose}
-            className="px-6 py-2.5 rounded-full font-bold text-xs bg-[#2b7ea8] text-white hover:bg-[#206283] transition-all shadow-xs cursor-pointer"
+            className="min-h-[44px] px-6 py-2.5 rounded-full font-bold text-sm bg-[#2b7ea8] text-white hover:bg-[#206283] transition-all shadow-xs cursor-pointer"
           >
             とじる
           </button>

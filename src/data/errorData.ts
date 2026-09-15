@@ -629,32 +629,8 @@ export const PEACE_OF_MIND_CARDS: PeaceOfMindCard[] = [
   },
 ];
 
-export const DAILY_BOT_DATA = {
-  streakDays: 3,
-  todayDate: '9月15日',
-  stampDays: [
-    { day: '月', stamped: true },
-    { day: '火', stamped: true },
-    { day: '水', stamped: true },
-    { day: '木', stamped: false, isToday: true },
-    { day: '金', stamped: false },
-    { day: '土', stamped: false },
-    { day: '日', stamped: false },
-  ],
-  todayQuestion: {
-    id: 99,
-    questionText: '「Error 404 Not Found」が出たとき、真っ先に疑うべき原因はどれかな？',
-    choices: [
-      { text: 'URLやファイル名のつづり（スペル）間違い', isCorrect: true },
-      { text: 'パソコンのメモリが多すぎること', isCorrect: false },
-      { text: 'キーボードが壊れていること', isCorrect: false },
-      { text: 'コードが完璧すぎること', isCorrect: false },
-    ],
-    hint: '404は「探したけど見つからなかったよ」という意味だよ！',
-    explanation: '404は「まいご系」の代表格！URLやファイルパスの文字が1字ズレていることがほとんどだよ🔍',
-  },
-  dailyAdvice: 'エラーメッセージは、パソコンがあなたを怒っているんじゃなくて「ここが困ってるの〜助けて！」って教えてくれているお手紙だよ💌',
-};
+export const DAILY_ADVICE =
+  'エラーメッセージは、パソコンがあなたを怒っているんじゃなくて「ここが困ってるの〜助けて！」って教えてくれているお手紙だよ💌';
 
 export const SAMPLE_INPUTS = [
   {

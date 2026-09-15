@@ -92,13 +92,13 @@ export const ErrorDictionary: React.FC = () => {
       </div>
 
       {/* 6 Category Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
         {ERROR_CATEGORIES.map((cat, idx) => {
           return (
             <div
               key={cat.id}
               onClick={() => setSelectedCategory(cat)}
-              className="group cursor-pointer bg-white rounded-[32px] p-6 border-2 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_6px_20px_rgba(150,120,100,0.12)] relative overflow-hidden flex flex-col justify-between"
+              className="group cursor-pointer bg-white rounded-[24px] sm:rounded-[32px] p-3 sm:p-6 border-2 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_6px_20px_rgba(150,120,100,0.12)] relative overflow-hidden flex flex-col justify-between min-h-[44px]"
               style={{
                 borderColor: cat.colorBorder,
               }}
@@ -119,7 +119,7 @@ export const ErrorDictionary: React.FC = () => {
                     0{idx + 1}
                   </div>
                   <span
-                    className="text-xs font-bold px-3 py-1 rounded-full text-[#5a4a42]"
+                    className="hidden sm:inline-flex text-xs font-bold px-3 py-1 rounded-full text-[#5a4a42]"
                     style={{ backgroundColor: cat.colorBadge }}
                   >
                     {cat.subtitle}
@@ -135,7 +135,7 @@ export const ErrorDictionary: React.FC = () => {
                     {cat.emoji}
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-lg sm:text-xl text-[#5a4a42] leading-tight group-hover:text-[#ff9db8] transition-colors">
+                    <h3 className="font-extrabold text-sm sm:text-xl text-[#5a4a42] leading-tight group-hover:text-[#ff9db8] transition-colors">
                       {cat.title}
                     </h3>
                     <p className="text-xs font-medium text-[#8a7c74]">{cat.monsterName}</p>

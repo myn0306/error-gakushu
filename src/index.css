@@ -47,6 +47,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* iOS Safari is zooming in when focused form controls are under 16px */
+@media (max-width: 767px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 .bubble-tail-bottom {
   position: relative;
 }

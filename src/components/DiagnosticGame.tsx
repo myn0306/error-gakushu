@@ -295,7 +295,7 @@ export const DiagnosticGame: React.FC = () => {
                   disabled={isSubmitted}
                   onClick={() => handleSelect(cat.id)}
                   style={btnStyle}
-                  className={`p-4 rounded-[20px] border-2 font-bold text-left transition-all duration-200 flex items-center justify-between group ${
+                  className={`p-4 min-h-[52px] rounded-[20px] border-2 font-bold text-left transition-all duration-200 flex items-center justify-between group ${
                     !isSubmitted ? 'hover:-translate-y-1 hover:shadow-md cursor-pointer' : ''
                   }`}
                 >
@@ -365,7 +365,7 @@ export const DiagnosticGame: React.FC = () => {
 
                 <button
                   onClick={handleNext}
-                  className="px-6 py-2.5 rounded-full font-extrabold text-sm bg-[#5a4a42] text-white hover:bg-[#786358] transition-colors flex items-center gap-2 shadow-xs cursor-pointer"
+                  className="px-6 py-2.5 min-h-[44px] rounded-full font-extrabold text-sm bg-[#5a4a42] text-white hover:bg-[#786358] transition-colors flex items-center gap-2 shadow-xs cursor-pointer"
                 >
                   <span>{currentIndex + 1 < totalQuestions ? 'つぎのもんだいへ' : '結果を見る'}</span>
                   <ArrowRight size={16} />
@@ -404,14 +404,14 @@ export const DiagnosticGame: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={handleRestart}
-              className="w-full sm:w-auto px-6 py-3 rounded-full font-bold text-sm bg-[#ffd3e0] border-2 border-[#ff9db8] text-[#5a4a42] hover:bg-[#ffb3c1] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+              className="w-full sm:w-auto min-h-[44px] px-6 py-3 rounded-full font-bold text-sm bg-[#ffd3e0] border-2 border-[#ff9db8] text-[#5a4a42] hover:bg-[#ffb3c1] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
               <RotateCcw size={16} />
               <span>もういちど挑戦する</span>
             </button>
             <button
               onClick={() => setIsPeaceOfMindOpen(true)}
-              className="w-full sm:w-auto px-6 py-3 rounded-full font-bold text-sm bg-white border-2 border-[#ffc94d] text-[#7a5814] hover:bg-[#ffe9a8] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+              className="w-full sm:w-auto min-h-[44px] px-6 py-3 rounded-full font-bold text-sm bg-white border-2 border-[#ffc94d] text-[#7a5814] hover:bg-[#ffe9a8] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
               <Heart size={16} className="fill-[#ff9db8] text-[#ff9db8]" />
               <span>安心おまもりを読む</span>

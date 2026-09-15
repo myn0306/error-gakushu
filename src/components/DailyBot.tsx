@@ -1,40 +1,59 @@
-import React, { useState } from 'react';
-import { DAILY_BOT_DATA } from '../data/errorData';
+import React, { useMemo, useState } from 'react';
+import { DAILY_ADVICE, ERROR_CATEGORIES, QUIZ_QUESTIONS } from '../data/errorData';
+import { ErrorCategoryId } from '../types';
+import {
+  getCurrentStreak,
+  getTodayQuestion,
+  getWeeklyStampDays,
+  isAnsweredToday,
+  recordTodayAnswered,
+} from '../utils/dailyChallenge';
 import { Mascot } from './Mascot';
-import { SectionBadge, SparkleIcon, FlowerIcon } from './Decorations';
-import { Calendar, Award, CheckCircle2, XCircle, Heart, Sparkles, Flame } from 'lucide-react';
+import { SectionBadge } from './Decorations';
+import { Calendar, CheckCircle2, XCircle, Flame, Sparkles } from 'lucide-react';
 
-export const DailyBot: React.FC = () => {
-  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
-  const [answered, setAnswered] = useState(false);
-  const [stampDays, setStampDays] = useState(DAILY_BOT_DATA.stampDays);
-  const [streak, setStreak] = useState(DAILY_BOT_DATA.streakDays);
+interface DailyBotProps {
+  onAnsweredToday?: () => void;
+}
 
-  const { todayQuestion, todayDate, dailyAdvice } = DAILY_BOT_DATA;
+export const DailyBot: React.FC<DailyBotProps> = ({ onAnsweredToday }) => {
+  const [startedAlreadyDone] = useState(() => isAnsweredToday());
+  const todayQuestion = useMemo(() => getTodayQuestion(QUIZ_QUESTIONS), []);
+  const [selectedAnswer, setSelectedAnswer] = useState<ErrorCategoryId | null>(
+    startedAlreadyDone ? todayQuestion.correctCategory : null
+  );
+  const [answered, setAnswered] = useState(startedAlreadyDone);
+  const [stampDays, setStampDays] = useState(() => getWeeklyStampDays());
+  const [streak, setStreak] = useState(() => getCurrentStreak());
 
-  const handleChoose = (idx: number) => {
+  const todayDate = new Date().toLocaleDateString('ja-JP', { month: 'long', day: 'numeric' });
+  const isSelectedCorrect = selectedAnswer === todayQuestion.correctCategory;
+
+  const choices = useMemo(() => {
+    const correctCat = ERROR_CATEGORIES.find((c) => c.id === todayQuestion.correctCategory)!;
+    const otherCats = ERROR_CATEGORIES.filter((c) => c.id !== todayQuestion.correctCategory);
+    const shuffledOthers = [...otherCats].sort(() => 0.5 - Math.random()).slice(0, 3);
+    return [correctCat, ...shuffledOthers].sort(() => 0.5 - Math.random());
+  }, [todayQuestion.correctCategory]);
+
+  const handleChoose = (categoryId: ErrorCategoryId) => {
     if (answered) return;
-    setSelectedChoice(idx);
+    setSelectedAnswer(categoryId);
     setAnswered(true);
 
-    if (todayQuestion.choices[idx].isCorrect) {
-      // Stamp today's card!
-      setStampDays((prev) =>
-        prev.map((d) => (d.isToday ? { ...d, stamped: true } : d))
-      );
-      setStreak((prev) => prev + 1);
+    if (categoryId === todayQuestion.correctCategory) {
+      const updated = recordTodayAnswered();
+      setStreak(updated.streak);
+      setStampDays(getWeeklyStampDays());
+      onAnsweredToday?.();
     }
   };
 
-  const isSelectedCorrect =
-    selectedChoice !== null && todayQuestion.choices[selectedChoice]?.isCorrect;
-
   return (
     <div className="w-full">
-      {/* Header */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-white/70 backdrop-blur-sm border-2 border-[#e3d9f7] rounded-[32px] p-6 shadow-[0_4px_12px_rgba(150,120,100,0.15)]">
         <div className="space-y-2 text-center md:text-left">
-          <SectionBadge emoji="🤖" title="今日のエラーbot" badgeBg="#e3d9f7" borderColor="#e3d9f7" />
+          <SectionBadge emoji="🌸" title="今日のエラー" badgeBg="#e3d9f7" borderColor="#e3d9f7" />
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#5a4a42] tracking-tight">
             まいにち1問！コツコツ解読習慣
           </h2>
@@ -46,17 +65,18 @@ export const DailyBot: React.FC = () => {
           mood={answered ? (isSelectedCorrect ? 'cheering' : 'worried') : 'happy'}
           size="md"
           bubbleText={
-            answered
-              ? isSelectedCorrect
-                ? '今日のスタンプをポンッ！毎日コツコツですごい〜！💮'
-                : 'おしいっ！でも挑戦したことがとってもえらいよ〜！✨'
-              : 'きょうのミニクイズをお届けするよ！準備はいいかな？'
+            startedAlreadyDone && answered && isSelectedCorrect
+              ? '今日はもうクリア済みだよ！また明日ね🌸'
+              : answered
+                ? isSelectedCorrect
+                  ? '今日のスタンプをポンッ！毎日コツコツですごい〜！💮'
+                  : 'おしいっ！でも挑戦したことがとってもえらいよ〜！✨'
+                : 'きょうのミニクイズをお届けするよ！準備はいいかな？'
           }
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Today's Mini Quiz Card (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white rounded-[32px] border-3 border-[#ffd3e0] p-6 sm:p-8 shadow-[0_6px_20px_rgba(150,120,100,0.12)]">
             <div className="flex items-center justify-between mb-4">
@@ -67,21 +87,28 @@ export const DailyBot: React.FC = () => {
               <span className="text-xs font-bold text-[#8f7413]">1日1問限定</span>
             </div>
 
-            {/* Question Text */}
-            <h3 className="text-base sm:text-xl font-extrabold text-[#5a4a42] leading-snug mb-6">
-              {todayQuestion.questionText}
-            </h3>
+            {startedAlreadyDone && (
+              <div className="mb-4 p-3 rounded-[20px] bg-[#d3f3e8] border-2 border-[#d3f3e8] text-xs sm:text-sm font-bold text-[#0e6143]">
+                今日はもうクリア済みだよ！また明日ね🌸
+              </div>
+            )}
 
-            {/* Choices */}
+            <div className="bg-[#372f2a] text-[#f7eee9] rounded-[20px] p-4 font-mono text-xs sm:text-sm overflow-x-auto shadow-inner border border-[#52443d] mb-4">
+              <pre className="whitespace-pre-wrap">{todayQuestion.errorSnippet}</pre>
+            </div>
+
+            <p className="text-center font-extrabold text-[#5a4a42] text-base sm:text-lg mb-4">
+              Q. このエラーはどの系統のモンスターかな？
+            </p>
+
             <div className="space-y-3 mb-6">
-              {todayQuestion.choices.map((choice, idx) => {
-                const isChosen = selectedChoice === idx;
-                const isChoiceCorrect = choice.isCorrect;
+              {choices.map((cat) => {
+                const isChosen = selectedAnswer === cat.id;
+                const isTargetCorrect = cat.id === todayQuestion.correctCategory;
 
                 let choiceStyle = 'bg-[#fff8ec] border-[#ffe9a8] text-[#5a4a42] hover:bg-[#ffe9a8]';
-
                 if (answered) {
-                  if (isChoiceCorrect) {
+                  if (isTargetCorrect) {
                     choiceStyle = 'bg-[#d3f3e8] border-[#d3f3e8] text-[#0e6143] font-black';
                   } else if (isChosen) {
                     choiceStyle = 'bg-[#ffd3e0] border-[#ffb3c1] text-[#9e1e44]';
@@ -92,22 +119,22 @@ export const DailyBot: React.FC = () => {
 
                 return (
                   <button
-                    key={idx}
+                    key={cat.id}
                     disabled={answered}
-                    onClick={() => handleChoose(idx)}
-                    className={`w-full p-4 rounded-[20px] border-2 text-left font-bold text-xs sm:text-sm flex items-center justify-between transition-all duration-200 cursor-pointer ${choiceStyle}`}
+                    onClick={() => handleChoose(cat.id)}
+                    className={`w-full p-4 min-h-[52px] rounded-[20px] border-2 text-left font-bold text-sm flex items-center justify-between transition-all duration-200 cursor-pointer ${choiceStyle}`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="w-7 h-7 rounded-full bg-white/80 border border-current flex items-center justify-center text-xs font-extrabold shrink-0">
-                        {String.fromCharCode(65 + idx)}
-                      </span>
-                      <span>{choice.text}</span>
+                      <span className="text-2xl">{cat.emoji}</span>
+                      <div>
+                        <div className="text-sm sm:text-base font-extrabold">{cat.title}</div>
+                        <div className="text-xs opacity-75 font-medium">{cat.monsterName}</div>
+                      </div>
                     </div>
-
-                    {answered && isChoiceCorrect && (
+                    {answered && isTargetCorrect && (
                       <CheckCircle2 size={20} className="text-[#198560] shrink-0" />
                     )}
-                    {answered && isChosen && !isChoiceCorrect && (
+                    {answered && isChosen && !isTargetCorrect && (
                       <XCircle size={20} className="text-[#ff9db8] shrink-0" />
                     )}
                   </button>
@@ -115,7 +142,6 @@ export const DailyBot: React.FC = () => {
               })}
             </div>
 
-            {/* Answer feedback */}
             {answered && (
               <div
                 className={`p-4 rounded-[20px] border-2 ${
@@ -124,7 +150,7 @@ export const DailyBot: React.FC = () => {
                     : 'bg-[#ffd3e0] border-[#ffb3c1] text-[#8e2444]'
                 }`}
               >
-                <div className="font-extrabold text-sm mb-1 flex items-center gap-1.5">
+                <div className="font-extrabold text-sm mb-1">
                   {isSelectedCorrect ? '💮 はなまる！だいせいかい！' : '🌱 おしい！解説をチェック'}
                 </div>
                 <p className="text-xs sm:text-sm leading-relaxed font-medium">
@@ -134,7 +160,6 @@ export const DailyBot: React.FC = () => {
             )}
           </div>
 
-          {/* Daily Advice Card */}
           <div className="bg-gradient-to-r from-[#ffd3e0] to-[#fff3d4] border-2 border-[#ff9db8] rounded-[32px] p-5 sm:p-6 shadow-xs flex items-center gap-4">
             <div className="w-12 h-12 rounded-[20px] bg-white flex items-center justify-center text-2xl shrink-0 shadow-xs">
               💌
@@ -144,15 +169,13 @@ export const DailyBot: React.FC = () => {
                 DXうさ子ちゃんの「まいにち応援コラム」
               </h4>
               <p className="text-xs sm:text-sm font-medium text-[#5a4a42] leading-relaxed">
-                {dailyAdvice}
+                {DAILY_ADVICE}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Streak Counter & Stamp Card (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
-          {/* Streak Badge Card */}
           <div className="bg-white rounded-[32px] border-3 border-[#ffc94d] p-6 shadow-sm text-center relative overflow-hidden">
             <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#ffe9a8] border border-[#ffc94d] text-xs font-black text-[#9c6a00] mb-3">
               <Flame size={16} className="text-orange-500 fill-orange-500" />
@@ -167,13 +190,11 @@ export const DailyBot: React.FC = () => {
               毎日エラーに触れているだけで、すでにすごい一歩を踏み出しています💮
             </p>
 
-            {/* Mascot Mini Stamp Avatar */}
             <div className="flex justify-center">
               <Mascot mood="proud" size="sm" />
             </div>
           </div>
 
-          {/* Weekly Stamp Card */}
           <div className="bg-white rounded-[32px] border-3 border-[#cfe9f7] p-6 shadow-xs">
             <div className="flex items-center justify-between mb-4">
               <h4 className="font-extrabold text-sm sm:text-base text-[#5a4a42] flex items-center gap-2">
@@ -194,8 +215,8 @@ export const DailyBot: React.FC = () => {
                       sd.stamped
                         ? 'bg-[#ffd3e0] border-[#ff9db8] shadow-xs rotate-[-3deg]'
                         : sd.isToday
-                        ? 'bg-[#fff8ec] border-[#ffc94d] border-dashed animate-pulse'
-                        : 'bg-[#faf7f4] border-[#e8ded7]'
+                          ? 'bg-[#fff8ec] border-[#ffc94d] border-dashed animate-pulse'
+                          : 'bg-[#faf7f4] border-[#e8ded7]'
                     }`}
                   >
                     {sd.stamped ? '💮' : sd.isToday ? '🐾' : '・'}

@@ -8,12 +8,13 @@ export const AskingCoach: React.FC = () => {
   const [errorText, setErrorText] = useState('');
   const [triedAction, setTriedAction] = useState('');
   const [environment, setEnvironment] = useState('');
+  const [relatedCode, setRelatedCode] = useState('');
   const [copied, setCopied] = useState(false);
 
   // Analyze checklist status
   const checklist = useMemo(() => {
     const hasErrorText = errorText.trim().length >= 10;
-    const hasTriedAction = triedAction.trim().length >= 5;
+    const hasTriedAction = triedAction.trim().length >= 10;
     const hasEnvironment = environment.trim().length >= 3;
     const totalMet = (hasErrorText ? 1 : 0) + (hasTriedAction ? 1 : 0) + (hasEnvironment ? 1 : 0);
     return {
@@ -62,6 +63,7 @@ export const AskingCoach: React.FC = () => {
     return `### 質問の背景
 現在プログラムを開発中ですが、下記のエラーが発生して困っています。
 未経験者のため、専門用語をできるだけわかりやすく、修正の手順を1ステップずつ教えてください。
+回答は日本語でお願いします。
 
 ### 1. 発生しているエラー全文
 \`\`\`
@@ -73,11 +75,11 @@ ${triedAction.trim() || '（操作内容を記載）'}
 
 ### 3. 実行環境・OS
 ${environment.trim() || '（環境情報を記載）'}
-
+${relatedCode.trim() ? `\n### 4. 関連するコード\n\`\`\`\n${relatedCode.trim()}\n\`\`\`\n` : ''}
 ### 解決したいこと
 - なぜこのエラーが起きているのか（根本原因）
 - どのファイルの何行目をどのように直せばよいか`;
-  }, [errorText, triedAction, environment]);
+  }, [errorText, triedAction, environment, relatedCode]);
 
   const handleCopyPrompt = () => {
     navigator.clipboard.writeText(generatedPrompt);
@@ -95,6 +97,7 @@ ${environment.trim() || '（環境情報を記載）'}
     setErrorText('');
     setTriedAction('');
     setEnvironment('');
+    setRelatedCode('');
   };
 
   return (
@@ -133,7 +136,7 @@ ${environment.trim() || '（環境情報を記載）'}
                   {s.label}
                 </button>
               ))}
-              {(errorText || triedAction || environment) && (
+              {(errorText || triedAction || environment || relatedCode) && (
                 <button
                   onClick={handleClear}
                   className="px-3 py-1 rounded-full text-xs font-medium text-[#8a7c74] hover:bg-[#ffd3e0] hover:text-[#ff9db8] transition-colors"
@@ -172,7 +175,7 @@ ${environment.trim() || '（環境情報を記載）'}
               onChange={(e) => setErrorText(e.target.value)}
               placeholder="例: Uncaught TypeError: Cannot read properties of undefined (reading 'map')..."
               rows={4}
-              className="w-full bg-[#fff8ec] border-2 border-[#ffd3e0] focus:border-[#ff9db8] rounded-[20px] p-3 text-xs sm:text-sm font-mono text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0]"
+              className="w-full bg-[#fff8ec] border-2 border-[#ffd3e0] focus:border-[#ff9db8] rounded-[20px] p-3 text-base text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0] font-mono"
             />
           </div>
 
@@ -225,7 +228,7 @@ ${environment.trim() || '（環境情報を記載）'}
               onChange={(e) => setTriedAction(e.target.value)}
               placeholder="例: 商品一覧コンポーネントで配列データを表示しようとコードを追加した直後にエラーになりました。"
               rows={3}
-              className="w-full bg-[#fff8ec] border-2 border-[#ffe9a8] focus:border-[#ffc94d] rounded-[20px] p-3 text-xs sm:text-sm text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0]"
+              className="w-full bg-[#fff8ec] border-2 border-[#ffe9a8] focus:border-[#ffc94d] rounded-[20px] p-3 text-base text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0]"
             />
           </div>
 
@@ -277,7 +280,30 @@ ${environment.trim() || '（環境情報を記載）'}
               value={environment}
               onChange={(e) => setEnvironment(e.target.value)}
               placeholder="例: Mac (macOS), React + TypeScript, Vite, Chrome"
-              className="w-full bg-[#fff8ec] border-2 border-[#d3f3e8] focus:border-[#d3f3e8] rounded-[20px] p-3 text-xs sm:text-sm text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0]"
+              className="w-full min-h-[44px] bg-[#fff8ec] border-2 border-[#d3f3e8] focus:border-[#d3f3e8] rounded-[20px] p-3 text-base text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0]"
+            />
+          </div>
+
+          {/* Input 4: Related code (optional) */}
+          <div className="bg-white rounded-[32px] border-2 border-[#cfe9f7] p-5 sm:p-6 shadow-xs">
+            <div className="flex items-center justify-between mb-2">
+              <label className="font-extrabold text-sm sm:text-base text-[#5a4a42] flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-[#cfe9f7] text-[#2b7ea8] flex items-center justify-center text-xs font-bold">
+                  4
+                </span>
+                <span>関連するコード（あれば・任意）</span>
+                <span className="text-[11px] font-normal text-[#2b7ea8] bg-[#e8f4fb] px-2 py-0.5 rounded-full font-bold">任意</span>
+              </label>
+            </div>
+            <p className="text-xs text-[#8a7c74] mb-3">
+              エラーが出ている周辺のコードを貼ると、AIの回答精度がぐっと上がります。
+            </p>
+            <textarea
+              value={relatedCode}
+              onChange={(e) => setRelatedCode(e.target.value)}
+              placeholder="例: エラーが出ている関数やコンポーネントのコードを貼り付け..."
+              rows={4}
+              className="w-full bg-[#fff8ec] border-2 border-[#cfe9f7] focus:border-[#8ec8e6] rounded-[20px] p-3 text-base font-mono text-[#473a34] outline-none transition-colors placeholder:text-[#c4aba0]"
             />
           </div>
         </div>

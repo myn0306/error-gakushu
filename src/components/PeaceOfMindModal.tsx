@@ -24,19 +24,19 @@ export const PeaceOfMindModal: React.FC<PeaceOfMindModalProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[32px] border-4 border-[#ffd3e0] p-6 sm:p-8 shadow-[0_6px_20px_rgba(150,120,100,0.12)]">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-3 sm:p-6 bg-black/40 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="relative bg-white w-full max-w-2xl max-h-[min(90dvh,90vh)] overflow-y-auto rounded-t-[32px] sm:rounded-[32px] border-4 border-[#ffd3e0] p-5 sm:p-8 shadow-[0_6px_20px_rgba(150,120,100,0.12)] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-10 h-10 rounded-full bg-[#fff8ec] border-2 border-[#ffd3e0] hover:bg-[#ffd3e0] text-[#5a4a42] flex items-center justify-center transition-colors shadow-xs cursor-pointer"
+          className="absolute top-3 right-3 z-20 w-11 h-11 rounded-full bg-[#fff8ec] border-2 border-[#ffd3e0] hover:bg-[#ffd3e0] text-[#5a4a42] flex items-center justify-center transition-colors shadow-xs cursor-pointer"
           aria-label="閉じる"
         >
           <X size={20} />
         </button>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-6 pr-14">
           <div className="w-14 h-14 rounded-[20px] bg-[#ffd3e0] flex items-center justify-center text-3xl shadow-xs shrink-0">
             🍀
           </div>
@@ -81,7 +81,7 @@ export const PeaceOfMindModal: React.FC<PeaceOfMindModalProps> = ({ isOpen, onCl
             </div>
             <button
               onClick={handleDrawRandom}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-white border border-[#ff9db8] text-[#ff9db8] hover:bg-[#ffd3e0] transition-colors shadow-xs cursor-pointer shrink-0"
+              className="inline-flex items-center gap-1 min-h-[44px] px-3 py-2 rounded-full text-xs font-bold bg-white border border-[#ff9db8] text-[#ff9db8] hover:bg-[#ffd3e0] transition-colors shadow-xs cursor-pointer shrink-0"
             >
               <RefreshCw size={12} className="animate-spin-once" />
               <span>おみくじを引く</span>
@@ -111,7 +111,7 @@ export const PeaceOfMindModal: React.FC<PeaceOfMindModalProps> = ({ isOpen, onCl
                 <button
                   key={card.id}
                   onClick={() => setSelectedCardId(card.id)}
-                  className={`p-3 rounded-[20px] border-2 text-left flex items-start gap-2.5 transition-all cursor-pointer ${
+                  className={`p-3 min-h-[44px] rounded-[20px] border-2 text-left flex items-start gap-2.5 transition-all cursor-pointer ${
                     isSelected
                       ? 'bg-[#ffd3e0] border-[#ff9db8] shadow-xs'
                       : 'bg-[#fff8ec] border-[#e8dcd5] hover:bg-[#fff5ee]'
@@ -136,7 +136,7 @@ export const PeaceOfMindModal: React.FC<PeaceOfMindModalProps> = ({ isOpen, onCl
         <div className="mt-6 text-center">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-8 py-3 rounded-full font-extrabold text-xs sm:text-sm bg-[#5a4a42] text-white hover:bg-[#433731] transition-all shadow-md cursor-pointer"
+            className="w-full sm:w-auto min-h-[44px] px-8 py-3 rounded-full font-extrabold text-sm bg-[#5a4a42] text-white hover:bg-[#433731] transition-all shadow-md cursor-pointer"
           >
             安心できた！閉じる 🌸
           </button>
